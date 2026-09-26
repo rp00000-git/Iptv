@@ -29,7 +29,9 @@ jobs:
       - name: Download Israel EPG
         continue-on-error: true
         run: |
-          curl --fail --location --retry 2 --output epg.xml "https://iptv-org.github.io/epg/guides/il/yes.co.il.epg.xml"
+          curl --fail --location --retry 2 --output epg.xml.gz "https://epgshare01.online/epgshare01/epg_ripper_IL1.xml.gz"
+          gzip -dc epg.xml.gz > epg.xml
+          rm -f epg.xml.gz
       - name: Ensure EPG file exists
         run: |
           test -s epg.xml || printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?><tv></tv>' > epg.xml
