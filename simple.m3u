@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1,Kan 11
+https://kancdn.medonecdn.net/livehls/oil/kancdn-live/live/kan11/live.livx/playlist.m3u8
+#EXTINF:-1,Now 14
+https://r.il.cdn-redge.media/livehls/oil/ch14/live/ch14/live.livx/playlist.m3u8
+#EXTINF:-1,ABC News
+https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8
