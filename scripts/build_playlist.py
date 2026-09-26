@@ -3,6 +3,7 @@ import concurrent.futures as cf
 import json
 import re
 import urllib.request
+from datetime import datetime, timezone
 from collections import defaultdict
 from pathlib import Path
 
@@ -10,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CFG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 UA = "Mozilla/5.0 (compatible; Personal-IPTV-Builder/1.0)"
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
-EPG_URL = "https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml"
+EPG_URL = "https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz"
 ISRAEL_EPG_IDS = {
     "5Gold": "5GOLD.il",
     "5Live": "5LIVE.HD.il",
@@ -131,6 +132,16 @@ ENGLISH_CHANNELS = {
     "True History": "English | History",
 }
 
+GROUP_HE = {
+    "English | News": "אנגלית | חדשות",
+    "English | Comedy": "אנגלית | קומדיה",
+    "English | Family": "אנגלית | משפחה",
+    "English | Nature & Science": "אנגלית | מדע וטבע",
+    "English | Movies & Series": "אנגלית | סרטים ומדע בדיוני",
+    "English | Series": "אנגלית | סדרות",
+    "English | History": "אנגלית | היסטוריה",
+}
+
 def base_name(name):
     name = re.sub(r"\s+\[[^]]+\]$", "", name).strip()
     return re.sub(r"\s+\(\d+[pi]?\)$", "", name).strip()
@@ -162,6 +173,8 @@ def parse(text, source):
     return result
 
 def wanted(entry):
+    if "[Geo-blocked]" in entry["name"]:
+        return False
     name = base_name(entry["name"])
     if entry["source"] == "Israel":
         return name in ISRAEL_CHANNELS
@@ -178,10 +191,39 @@ def probe(entry):
     try:
         request = urllib.request.Request(entry["url"], headers=headers)
         with urllib.request.urlopen(request, timeout=CFG["probe_timeout_seconds"]) as response:
-            response.read(1024)
-            return entry, 200 <= getattr(response, "status", 200) < 400
+            data = response.read(4096)
+            ok = 200 <= getattr(response, "status", 200) < 400
+            if ".m3u8" in entry["url"].lower() and b"#EXTM3U" not in data:
+                ok = False
+            return entry, ok
     except Exception:
         return entry, False
+
+def quality(entry):
+    name = entry["name"].lower()
+    if "2160p" in name: return 2
+    if "1080p" in name: return 5
+    if "720p" in name: return 4
+    if "576" in name or "540p" in name: return 3
+    if "480p" in name: return 2
+    if "360p" in name or "240p" in name or "144p" in name: return 1
+    return 3
+
+def render(entries, epg=True):
+    header = f'#EXTM3U url-tvg="{EPG_URL}" x-tvg-url="{EPG_URL}"' if epg else "#EXTM3U"
+    lines = [header]
+    for entry in entries:
+        attrs = entry["attrs"].copy()
+        name = base_name(entry["name"])
+        if entry["source"] == "Israel" and name in ISRAEL_EPG_IDS:
+            attrs["tvg-id"] = ISRAEL_EPG_IDS[name]
+        group = (ISRAEL_CHANNELS if entry["source"] == "Israel" else ENGLISH_CHANNELS)[name]
+        attrs["group-title"] = GROUP_HE.get(group, group)
+        attr_text = " ".join(f'{key}="{str(value).replace(chr(34), chr(39))}"' for key, value in attrs.items() if value)
+        lines.append(f'#EXTINF:-1 {attr_text},{entry["name"]}')
+        lines.extend(entry.get("options", []))
+        lines.append(entry["url"])
+    return "\n".join(lines) + "\n"
 
 def dedupe(entries):
     seen, result = set(), []
@@ -227,23 +269,26 @@ def main():
         entries.extend(parse(get(url).decode("utf-8", "replace"), source))
     candidates = cap_groups(dedupe([entry for entry in entries if wanted(entry)]))
     israel = [entry for entry in candidates if entry["source"] == "Israel"]
-    english = [entry for entry in candidates if entry["source"] != "Israel"]
+    english = sorted([entry for entry in candidates if entry["source"] != "Israel"], key=quality, reverse=True)
     with cf.ThreadPoolExecutor(max_workers=CFG["probe_workers"]) as pool:
         checked = list(pool.map(probe, english))
-    final = choose_one_per_channel(dedupe(israel + [entry for entry, active in checked if active]))
-    lines = [f'#EXTM3U url-tvg="{EPG_URL}" x-tvg-url="{EPG_URL}"']
-    for entry in final:
-        attrs = entry["attrs"].copy()
-        name = base_name(entry["name"])
-        if entry["source"] == "Israel" and name in ISRAEL_EPG_IDS:
-            attrs["tvg-id"] = ISRAEL_EPG_IDS[name]
-        attrs["group-title"] = (ISRAEL_CHANNELS if entry["source"] == "Israel" else ENGLISH_CHANNELS)[name]
-        attr_text = " ".join(f'{key}="{str(value).replace(chr(34), chr(39))}"' for key, value in attrs.items() if value)
-        lines.append(f'#EXTINF:-1 {attr_text},{entry["name"]}')
-        lines.extend(entry.get("options", []))
-        lines.append(entry["url"])
-    (ROOT / "playlist.m3u").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    status = {"israel_channels": len(israel), "english_checked": len(english), "english_active": len(final) - len(israel), "total": len(final)}
+    active = [entry for entry, ok in checked if ok]
+    final = choose_one_per_channel(dedupe(israel + active))
+    chosen_urls = {entry["url"] for entry in final}
+    backup = choose_one_per_channel([entry for entry in active if entry["url"] not in chosen_urls])
+    (ROOT / "playlist.m3u").write_text(render(final), encoding="utf-8")
+    (ROOT / "playlist-backup.m3u").write_text(render(backup), encoding="utf-8")
+    active_keys = {curated_key(e) for e in final}
+    requested = {curated_key({"name": n}) for n in ISRAEL_CHANNELS | ENGLISH_CHANNELS}
+    status = {
+        "updated_utc": datetime.now(timezone.utc).isoformat(),
+        "israel_channels": sum(e["source"] == "Israel" for e in final),
+        "english_checked": len(english),
+        "english_active": sum(e["source"] != "Israel" for e in final),
+        "total": len(final),
+        "backup_streams": len(backup),
+        "missing_channels": sorted(requested - active_keys),
+    }
     (ROOT / "status.json").write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(status, indent=2))
 
