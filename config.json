@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "Israel": "https://iptv-org.github.io/iptv/countries/il.m3u",
+    "English": "https://iptv-org.github.io/iptv/languages/eng.m3u"
+  },
+  "english_keywords": [
+    "documentary", "science", "nature", "history", "crime",
+    "news", "movies", "series", "culture", "education", "travel"
+  ],
+  "max_channels_per_english_group": 35,
+  "probe_timeout_seconds": 10,
+  "probe_workers": 24
+}
