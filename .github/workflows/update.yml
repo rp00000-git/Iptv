@@ -1,0 +1,42 @@
+name: Update IPTV playlist
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "config.json"
+      - ".github/workflows/update.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-iptv
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and verify playlist
+        run: python3 scripts/build_playlist.py
+      - name: Download Israel EPG
+        continue-on-error: true
+        run: |
+          curl --fail --location --retry 2 --output epg.xml "https://iptv-org.github.io/epg/guides/il/yes.co.il.epg.xml"
+      - name: Ensure EPG file exists
+        run: |
+          test -s epg.xml || printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?><tv></tv>' > epg.xml
+      - name: Commit refreshed files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add playlist.m3u epg.xml status.json
+          git diff --cached --quiet || git commit -m "chore: refresh IPTV playlist"
+          git push
