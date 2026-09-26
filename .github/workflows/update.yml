@@ -24,21 +24,19 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Build and verify playlist
+      - name: Build and verify playlists
         run: python3 scripts/build_playlist.py
-      - name: Download Israel EPG
+      - name: Build Israel, US and UK EPG
         continue-on-error: true
-        run: |
-          curl --fail --location --retry 2 --output epg.xml.gz "https://epgshare01.online/epgshare01/epg_ripper_IL1.xml.gz"
-          gzip -dc epg.xml.gz > epg.xml
-          rm -f epg.xml.gz
-      - name: Ensure EPG file exists
+        run: python3 scripts/build_epg.py
+      - name: Ensure EPG files exist
         run: |
           test -s epg.xml || printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?><tv></tv>' > epg.xml
+          test -s epg.xml.gz || gzip -9 -c epg.xml > epg.xml.gz
       - name: Commit refreshed files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add playlist.m3u epg.xml status.json
+          git add playlist.m3u playlist-backup.m3u epg.xml epg.xml.gz status.json
           git diff --cached --quiet || git commit -m "chore: refresh IPTV playlist"
           git push
