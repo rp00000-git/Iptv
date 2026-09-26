@@ -10,6 +10,42 @@ ROOT = Path(__file__).resolve().parents[1]
 CFG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 UA = "Mozilla/5.0 (compatible; Personal-IPTV-Builder/1.0)"
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
+EPG_URL = "https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml"
+ISRAEL_EPG_IDS = {
+    "5Gold": "5GOLD.il",
+    "5Live": "5LIVE.HD.il",
+    "5Plus": "5PLUS.HD.il",
+    "5Sport": "5SPORT.HD.il",
+    "5Stars": "5STARS.il",
+    "Channel 9 (Israel)": "ערוץ.9.il",
+    "Channel 13 (Israel)": "רשת.il",
+    "Channel 24 (Israel)": "מוסיקה.24.il",
+    "Disney Channel (Israel)": "דיסני.il",
+    "Food Channel": "FOOD.NETWORK.HD.il",
+    "Good Life": "GOOD.LIFE+.il",
+    "Hidabroot": "ערוץ.הידברות.il",
+    "Home +": "בית.+.HD.il",
+    "HOT8": "ערוץ.8.שידור.חי.il",
+    "i24NEWS Arabic": "i24NEWS.ARABIC.il",
+    "i24NEWS French": "i24NEWS.FRENCH.il",
+    "i24NEWS Hebrew": "עברית.i24.il",
+    "Junior": "ג’וניור.il",
+    "Kan 11": "כאן.11.il",
+    "Kan Educational": "כאן.חינוכית.il",
+    "Keshet 12": "קשת.il",
+    "Knesset Channel": "ערוץ.הכנסת.il",
+    "Makan 33": "מכאן.il",
+    "Now 14": "ערוץ.14.HD.il",
+    "One 2": "ONE2.HD.il",
+    "Reality Channel": "ערוץ.הריאליטי.il",
+    "TeenNick (Israel)": "ערוץ.TeenNick.il",
+    "Vacation Channel": "ערוץ.הנופש.il",
+    "Viva Istanbul": "ויוה.איסטנבול.il",
+    "Viva Premium": "ויוה.פרימיום.il",
+    "Viva Telenovelas": "ויוה.טלנובלות.il",
+    "Yam Tichoni": "ים.תיכוני.il",
+    "Zoom (Israel)": "ZOOM.Toon.il",
+}
 
 def get(url, timeout=45):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
@@ -91,9 +127,13 @@ def main():
     with cf.ThreadPoolExecutor(max_workers=CFG["probe_workers"]) as pool:
         checked = list(pool.map(probe, english))
     final = dedupe(israel + [entry for entry, active in checked if active])
-    lines = ["#EXTM3U"]
+    lines = [f'#EXTM3U url-tvg="{EPG_URL}" x-tvg-url="{EPG_URL}"']
     for entry in final:
         attrs = entry["attrs"].copy()
+        if entry["source"] == "Israel":
+            base_name = re.sub(r"\s+\(\d+p\)(?:\s+\[.*\])?$", "", entry["name"])
+            if base_name in ISRAEL_EPG_IDS:
+                attrs["tvg-id"] = ISRAEL_EPG_IDS[base_name]
         attrs["group-title"] = "ישראל" if entry["source"] == "Israel" else "English | " + attrs.get("group-title", "Other")
         attr_text = " ".join(f'{key}="{str(value).replace(chr(34), chr(39))}"' for key, value in attrs.items() if value)
         lines.append(f'#EXTINF:-1 {attr_text},{entry["name"]}')
