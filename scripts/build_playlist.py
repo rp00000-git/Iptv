@@ -99,9 +99,9 @@ def main():
         lines.append(f'#EXTINF:-1 {attr_text},{entry["name"]}')
         lines.extend(entry.get("options", []))
         lines.append(entry["url"])
-    (ROOT / "playlist.m3u").write_text("\\n".join(lines) + "\\n", encoding="utf-8")
+    (ROOT / "playlist.m3u").write_text("\n".join(lines) + "\n", encoding="utf-8")
     status = {"israel_channels": len(israel), "english_checked": len(english), "english_active": len(final) - len(israel), "total": len(final)}
-    (ROOT / "status.json").write_text(json.dumps(status, indent=2) + "\\n", encoding="utf-8")
+    (ROOT / "status.json").write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(status, indent=2))
 
 if __name__ == "__main__":
