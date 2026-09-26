@@ -37,6 +37,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add playlist.m3u playlist-backup.m3u epg.xml epg.xml.gz status.json
+          git add playlist.m3u epg.xml epg.xml.gz status.json
+          test ! -f playlist-backup.m3u || git add playlist-backup.m3u
           git diff --cached --quiet || git commit -m "chore: refresh IPTV playlist"
           git push
