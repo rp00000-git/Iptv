@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml" x-tvg-url="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz" x-tvg-url="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz"
 #EXTINF:-1 tvg-id="רשת.il" tvg-logo="https://i.imgur.com/eFM3bTq.png" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="ישראל | ערוצים מרכזיים",Channel 13 (Israel) (1080p)
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36
 http://stream.mcquack.net/295/index.m3u8
@@ -21,105 +21,107 @@ http://stream.mcquack.net/294/index.m3u8
 https://r.il.cdn-redge.media/livehls/oil/ch14/live/ch14/live.livx/playlist.m3u8
 #EXTINF:-1 tvg-id="ערוץ.הנופש.il" tvg-logo="https://static.g-cdn.app/streams/vacation-channel-il-hd.png" group-title="ישראל | לייף סטייל",Vacation Channel
 https://d1yd8hohnldm33.cloudfront.net/out/v1/19dee23c2cc24f689bd4e1288661ee0c/index_2.m3u8
-#EXTINF:-1 tvg-id="7thHeaven.se@SE" tvg-logo="https://images.pluto.tv/channels/6728c9c85534bb0008b320a4/colorLogoPNG.png" group-title="English | Family",7th Heaven
-https://jmp2.uk/plu-6728cab6e482950008b76d8c.m3u8
-#EXTINF:-1 tvg-id="ABCNews.au@Sydney" tvg-logo="https://i.imgur.com/BrW7gk8.png" group-title="English | News",ABC News (720p)
-https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8
-#EXTINF:-1 tvg-id="AlJazeera.qa@English" tvg-logo="https://i.imgur.com/7bRVpnu.png" group-title="English | News",Al Jazeera English (1080p)
+#EXTINF:-1 tvg-id="AlJazeera.qa@English" tvg-logo="https://i.imgur.com/7bRVpnu.png" group-title="אנגלית | חדשות",Al Jazeera English (1080p)
 https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8
-#EXTINF:-1 tvg-id="AMC.us@EastHD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="English | Movies & Series",AMC (United States) (720p)
-http://23.239.31.26:8989/amc/index.m3u8
-#EXTINF:-1 tvg-id="AngerManagementChannel.us@SD" tvg-logo="https://i.imgur.com/VXZgrNy.png" group-title="English | Comedy",Anger Management Channel (1080p)
+#EXTINF:-1 tvg-id="AngerManagementChannel.us@SD" tvg-logo="https://i.imgur.com/VXZgrNy.png" group-title="אנגלית | קומדיה",Anger Management Channel (1080p)
 https://amg00353-lionsgatestudio-angermgmt-samsungau-o9jg9.amagi.tv/playlist/amg00353-lionsgatestudio-angermgmt-samsungau/playlist.m3u8
-#EXTINF:-1 tvg-id="AutenticHistory.de@SD" tvg-logo="https://d3b6luslimvglo.cloudfront.net/images/79/rlaxximages/channels-rescaled/icon-white/autentichistory_white.png" group-title="English | History",Autentic History (1080p)
+#EXTINF:-1 tvg-id="AutenticHistory.de@SD" tvg-logo="https://d3b6luslimvglo.cloudfront.net/images/79/rlaxximages/channels-rescaled/icon-white/autentichistory_white.png" group-title="אנגלית | היסטוריה",Autentic History (1080p)
 https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
-#EXTINF:-1 tvg-id="BBCEarth.uk@US" tvg-logo="https://i.imgur.com/nGSsUd4.png" group-title="English | Nature & Science",BBC Earth US (1080p)
+#EXTINF:-1 tvg-id="BBCEarth.uk@US" tvg-logo="https://i.imgur.com/nGSsUd4.png" group-title="אנגלית | מדע וטבע",BBC Earth US (1080p)
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
-#EXTINF:-1 tvg-id="BBCNews.uk@UK" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_BBC_NEWS/images/LOGO_HD/image.png" group-title="English | News",BBC News (1080p)
+#EXTINF:-1 tvg-id="BBCNews.uk@UK" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_BBC_NEWS/images/LOGO_HD/image.png" group-title="אנגלית | חדשות",BBC News (1080p)
 https://xemzi.short.gy/1000015
-#EXTINF:-1 tvg-id="BloombergOriginals.us@US" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Bloomberg_Originals.png" group-title="English | News",Bloomberg Originals (1080p)
+#EXTINF:-1 tvg-id="BloombergOriginals.us@US" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Bloomberg_Originals.png" group-title="אנגלית | חדשות",Bloomberg Originals (1080p)
 https://bloomberg.com/media-manifest/streams/qt.m3u8
-#EXTINF:-1 tvg-id="BlueBloods.us@SD" tvg-logo="https://images.pluto.tv/channels/61b3b8c645b45d0007a9bb8d/colorLogoSVG.svg" group-title="English | Series",Blue Bloods
-https://jmp2.uk/plu-61b3b8c645b45d0007a9bb8d.m3u8
-#EXTINF:-1 tvg-id="CBSNews247.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/CBS_News_247_logo.svg/960px-CBS_News_247_logo.svg.png" group-title="English | News",CBS News 24/7 (720p)
-https://jmp2.uk/plu-6350fdd266e9ea0007bedec5.m3u8
-#EXTINF:-1 tvg-id="CheersPlusFrasier.us@SD" tvg-logo="https://images.pluto.tv/channels/66ba495ffe11e5000881f049/colorLogoPNG.png" group-title="English | Comedy",Cheers + Frasier
-https://jmp2.uk/plu-66ba495ffe11e5000881f049.m3u8
-#EXTINF:-1 tvg-id="ClassicMoviesChannel.us@SD" tvg-logo="https://i.imgur.com/pQJxov2.png" group-title="English | Movies & Series",Classic Movies Channel
-https://jmp2.uk/plu-561c5b0dada51f8004c4d855.m3u8
-#EXTINF:-1 tvg-id="CuriosityNOW.de@EN" tvg-logo="https://i.imgur.com/gJ9eMaG.png" group-title="English | Nature & Science",Curiosity NOW EN (1080p)
+#EXTINF:-1 tvg-id="CuriosityNOW.de@EN" tvg-logo="https://i.imgur.com/gJ9eMaG.png" group-title="אנגלית | מדע וטבע",Curiosity NOW EN (1080p)
 https://amg00170-amg00170c4-samsung-gb-4232.playouts.now.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="DUST.us@SD" tvg-logo="https://i.imgur.com/FxYhME9.png" group-title="English | Movies & Series",DUST (1080p)
+#EXTINF:-1 tvg-id="DUST.us@SD" tvg-logo="https://i.imgur.com/FxYhME9.png" group-title="אנגלית | סרטים ומדע בדיוני",DUST (1080p)
 https://dqi7ayt2o24fn.cloudfront.net/playlist.m3u8
-#EXTINF:-1 tvg-id="DW.de@English" tvg-logo="https://i.imgur.com/8MRNFb9.png" group-title="English | News",DW English (1080p)
+#EXTINF:-1 tvg-id="DW.de@English" tvg-logo="https://i.imgur.com/8MRNFb9.png" group-title="אנגלית | חדשות",DW English (1080p)
 https://amg01644-amg01644c1-amgplt0343.playout.now3.amagi.tv/ts-eu-w1-n2/playlist/amg01644-amg01644c1-amgplt0343/playlist.m3u8
-#EXTINF:-1 tvg-id="EuronewsEnglish.fr@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Euro_News.png" group-title="English | News",Euronews English (720p)
-https://jmp2.uk/plu-61de96114757070008d33cae.m3u8
-#EXTINF:-1 tvg-id="FailArmy.us@US" tvg-logo="https://i.imgur.com/VIpQJxL.png" group-title="English | Comedy",FailArmy (720p)
-https://failarmy-international-au.samsung.wurl.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="FoxNewsChannel.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fox_News_Channel_logo.svg/960px-Fox_News_Channel_logo.svg.png" group-title="English | News",Fox News Channel (720p)
-http://138.121.15.230:9002/FOX-NEWS/index.m3u8
-#EXTINF:-1 tvg-id="France24.fr@English" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_FRANCE_24/images/LOGO_HD/image.png" group-title="English | News",France 24 English (1080p)
+#EXTINF:-1 tvg-id="France24.fr@English" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_FRANCE_24/images/LOGO_HD/image.png" group-title="אנגלית | חדשות",France 24 English (1080p)
 https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_5000.m3u8
-#EXTINF:-1 tvg-id="HistoryHit.uk@SD" tvg-logo="https://i.imgur.com/ulHoqlP.png" group-title="English | History",History Hit (1080p)
+#EXTINF:-1 tvg-id="HistoryHit.uk@SD" tvg-logo="https://i.imgur.com/ulHoqlP.png" group-title="אנגלית | היסטוריה",History Hit (1080p)
 https://lds-timeline-rakuten.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="InWonder.nl@SD" tvg-logo="https://cdn.uc.assets.prezly.com/f12e798d-6da4-46e1-8ec5-e391d6762659/InWonder_portrait-purple.png" group-title="English | Nature & Science",InWonder (1080p)
+#EXTINF:-1 tvg-id="InWonder.nl@SD" tvg-logo="https://cdn.uc.assets.prezly.com/f12e798d-6da4-46e1-8ec5-e391d6762659/InWonder_portrait-purple.png" group-title="אנגלית | מדע וטבע",InWonder (1080p)
 https://amg00861-terninternation-inwonder-samsungau-1k63k.amagi.tv/playlist/amg00861-terninternation-inwonder-samsungau/playlist.m3u8
-#EXTINF:-1 tvg-id="JAG.se@SE" tvg-logo="https://images.pluto.tv/channels/654a4ab92c1d330008657ae5/colorLogoPNG.png" group-title="English | Series",JAG (Sweden)
-https://jmp2.uk/plu-654a515f986ad20008a4593b.m3u8
-#EXTINF:-1 tvg-id="JustforLaughsGags.us@SD" tvg-logo="https://i.imgur.com/HjVEVMJ.png" group-title="English | Comedy",Just for Laughs Gags (1080p)
+#EXTINF:-1 tvg-id="JustforLaughsGags.us@SD" tvg-logo="https://i.imgur.com/HjVEVMJ.png" group-title="אנגלית | קומדיה",Just for Laughs Gags (1080p)
 https://streams2.sofast.tv/ptnr-yupptv/title-JUST_FOR_LAUGHS_GAGS_YUPPTV/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/2790d143-5874-4146-bf91-9063c52b2f15/manifest.m3u8
-#EXTINF:-1 tvg-id="KidsMovieClub.us@SD" tvg-logo="https://i.imgur.com/avFk0Tt.png" group-title="English | Family",Kids Movie Club
-https://jmp2.uk/plu-5db0ad56edc89300090d2ebb.m3u8
-#EXTINF:-1 tvg-id="LoveNature.ca@SD" tvg-logo="https://tv.lovenature.com/wp-content/uploads/2024/10/LoveNature2024_Logo_full_colour-copy.png" group-title="English | Nature & Science",Love Nature (1080p)
+#EXTINF:-1 tvg-id="LoveNature.ca@SD" tvg-logo="https://tv.lovenature.com/wp-content/uploads/2024/10/LoveNature2024_Logo_full_colour-copy.png" group-title="אנגלית | מדע וטבע",Love Nature (1080p)
 https://aegis-cloudfront-1.tubi.video/6d6d0f24-8445-4b4c-bdf6-44f9e38beaa4/playlist.m3u8
-#EXTINF:-1 tvg-id="MacGyver.se@SE" tvg-logo="https://images.pluto.tv/channels/654a59742c1d33000865a797/colorLogoPNG.png" group-title="English | Series",MacGyver (Sweden)
-https://jmp2.uk/plu-63a19eceb3d0eb0007439c34.m3u8
-#EXTINF:-1 tvg-id="Matlock.se@SE" tvg-logo="https://images.pluto.tv/channels/66290a779e68c20008a18cf3/colorLogoPNG.png" group-title="English | Series",Matlock (Sweden)
-https://jmp2.uk/plu-66290c12801af8000850c1a9.m3u8
-#EXTINF:-1 tvg-id="MissionImpossible.se@SE" tvg-logo="https://images.pluto.tv/channels/6478a9e4f77b61000817034b/colorLogoPNG.png" group-title="English | Series",Mission Impossible (Sweden)
-https://jmp2.uk/plu-639b4f14be012600070fe1be.m3u8
-#EXTINF:-1 tvg-id="MoreTVScifi.de@GB" tvg-logo="https://images.pluto.tv/channels/645e00d5d3fdde000829463a/colorLogoPNG.png" group-title="English | Movies & Series",More TV Sci-fi
-https://jmp2.uk/plu-645e00d5d3fdde000829463a.m3u8
-#EXTINF:-1 tvg-id="Mythbusters.us@UK" tvg-logo="https://i.imgur.com/wzzjvcH.png" group-title="English | Nature & Science",Mythbusters (1080p)
+#EXTINF:-1 tvg-id="Mythbusters.us@UK" tvg-logo="https://i.imgur.com/wzzjvcH.png" group-title="אנגלית | מדע וטבע",Mythbusters (1080p)
 https://d2bog959vw5xq.cloudfront.net/playlist/amg00627-banijayfast-mythbusters-samsungau/playlist.m3u8
-#EXTINF:-1 tvg-id="NBCComedyVault.us@SD" tvg-logo="https://i.imgur.com/nydZWwg.png" group-title="English | Comedy",NBC Comedy Vault (1080p)
+#EXTINF:-1 tvg-id="NBCComedyVault.us@SD" tvg-logo="https://i.imgur.com/nydZWwg.png" group-title="אנגלית | קומדיה",NBC Comedy Vault (1080p)
 https://xumo-xumoent-vc-105-z0vpm.fast.nbcuni.com/live/master.m3u8
-#EXTINF:-1 tvg-id="NBCNewsNOW.us@SD" tvg-logo="https://i.imgur.com/JZt2qh5.png" group-title="English | News",NBC News NOW (1080p)
+#EXTINF:-1 tvg-id="NBCNewsNOW.us@SD" tvg-logo="https://i.imgur.com/JZt2qh5.png" group-title="אנגלית | חדשות",NBC News NOW (1080p)
 https://d1si3n1st4nkgb.cloudfront.net/10502/88896001/hls/master.m3u8?ads.xumo_channelId=88896001
-#EXTINF:-1 tvg-id="PBSKids.us@SD" tvg-logo="https://i.imgur.com/fg8c9WK.png" group-title="English | Family",PBS Kids (720p)
-https://livestream.pbskids.org/out/v1/14507d931bbe48a69287e4850e53443c/est.m3u8
-#EXTINF:-1 tvg-id="PlutoTVAction.se@SE" tvg-logo="https://images.pluto.tv/channels/61c095861782bd000780e0ba/colorLogoPNG.png" group-title="English | Movies & Series",Pluto TV Action (Sweden)
-https://jmp2.uk/plu-61c0b0688a80a4000703fbcb.m3u8
-#EXTINF:-1 tvg-id="PlutoTVAdventure.us@US" tvg-logo="https://images.pluto.tv/channels/653bdb0fbdf3cf00089cc395/colorLogoPNG.png" group-title="English | Movies & Series",Pluto TV Adventure
-https://jmp2.uk/plu-69d7ebb726eeec84158e28cb.m3u8
-#EXTINF:-1 tvg-id="PlutoTVComedyMovies.us@CA" tvg-logo="https://images.pluto.tv/channels/62ea3d24b8e02600071fa296/colorLogoPNG.png" group-title="English | Movies & Series",Pluto TV Comedy Movies
-https://jmp2.uk/plu-62ea3d24b8e02600071fa296.m3u8
-#EXTINF:-1 tvg-id="PlutoTVHorror.us@US" tvg-logo="https://images.pluto.tv/channels/569546031a619b8f07ce6e25/colorLogoPNG.png" group-title="English | Movies & Series",Pluto TV Horror (United States)
-https://jmp2.uk/plu-569546031a619b8f07ce6e25.m3u8
-#EXTINF:-1 tvg-id="PlutoTVSciFi.de@GB" tvg-logo="https://images.pluto.tv/channels/60ed498c4248a400077c0b9d/colorLogoPNG.png" group-title="English | Movies & Series",Pluto TV Sci-Fi (Germany) GB
-https://jmp2.uk/plu-5dc02a44a9518600094273ac.m3u8
-#EXTINF:-1 tvg-id="PlutoTVScience.us@US" tvg-logo="https://i.imgur.com/uhunRoU.png" group-title="English | Nature & Science",Pluto TV Science (United States)
-https://jmp2.uk/plu-563a970aa1a1f7fe7c9daad7.m3u8
-#EXTINF:-1 tvg-id="PlutoTVTheTwilightZone.us@SD" tvg-logo="https://i.imgur.com/FiIRQAR.png" group-title="English | Movies & Series",Pluto TV The Twilight Zone
-https://jmp2.uk/plu-67352ed93a61d4000881f9fa.m3u8
-#EXTINF:-1 tvg-id="RakutenTVFamilyMovies.es@Finland" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="English | Family",Rakuten TV Family Movies Finland (1080p)
+#EXTINF:-1 tvg-id="RakutenTVFamilyMovies.es@Finland" tvg-logo="https://i.imgur.com/Meew6eX.png" group-title="אנגלית | משפחה",Rakuten TV Family Movies Finland (1080p)
 https://758ee983d61e400381dea6fa8154f4e0.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6227/master.m3u8
-#EXTINF:-1 tvg-id="ReutersTV.us@SD" tvg-logo="https://i.imgur.com/6eQ2nCJ.png" group-title="English | News",Reuters TV (1080p)
+#EXTINF:-1 tvg-id="ReutersTV.us@SD" tvg-logo="https://i.imgur.com/6eQ2nCJ.png" group-title="אנגלית | חדשות",Reuters TV (1080p)
 https://amg00453-reuters-amg00453c1-rakuten-uk-2110.playouts.now.amagi.tv/playlist/amg00453-reuters-reuters-rakutenuk/playlist.m3u8
-#EXTINF:-1 tvg-id="SkyNews.ie@SD" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1404.png" group-title="English | News",Sky News
-https://jmp2.uk/plu-55b285cd2665de274553d66f.m3u8
-#EXTINF:-1 tvg-id="SmithsonianChannelSelects.us@SD" tvg-logo="https://i.imgur.com/Kt5j8Vr.png" group-title="English | Nature & Science",Smithsonian Channel Selects (United States)
-https://jmp2.uk/plu-5f21ea08007a49000762d349.m3u8
-#EXTINF:-1 tvg-id="StarTrekDeepSpaceNine.us@SD" tvg-logo="https://images.pluto.tv/channels/65c69bbfd77d450008c7ffee/colorLogoPNG_1758310416057.png" group-title="English | Movies & Series",Star Trek: Deep Space Nine
-https://jmp2.uk/plu-65c69bbfd77d450008c7ffee.m3u8
-#EXTINF:-1 tvg-id="StarTrekTheNextGeneration.us@SD" tvg-logo="https://images.pluto.tv/channels/695c32e61ca20bb8ca802eb9/colorLogoPNG_1768440087394.png" group-title="English | Movies & Series",Star Trek: The Next Generation (United States)
-https://jmp2.uk/plu-695c32e61ca20bb8ca802eb9.m3u8
-#EXTINF:-1 tvg-id="TheCarolBurnettShow.us@SD" tvg-logo="https://i.imgur.com/1a03FlX.png" group-title="English | Comedy",The Carol Burnett Show (1080p)
+#EXTINF:-1 tvg-id="SkyNews.ie@HD" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1404.png" group-title="אנגלית | חדשות",Sky News HD (1080p)
+https://xemzi.short.gy/1000018
+#EXTINF:-1 tvg-id="TheCarolBurnettShow.us@SD" tvg-logo="https://i.imgur.com/1a03FlX.png" group-title="אנגלית | קומדיה",The Carol Burnett Show (1080p)
 https://carolburnett-vizio.amagi.tv/playlist.m3u8
-#EXTINF:-1 tvg-id="TrueHistory.us@SD" tvg-logo="https://i.imgur.com/1BHDGXx.png" group-title="English | History",True History (720p)
-https://linear-188.frequency.stream/dist/glewedtv/188/hls/master/playlist.m3u8
-#EXTINF:-1 tvg-id="WildEarth.za@SD" tvg-logo="https://i.imgur.com/Vhv5gjN.png" group-title="English | Nature & Science",WildEarth (1080p)
+#EXTINF:-1 tvg-id="WildEarth.za@SD" tvg-logo="https://i.imgur.com/Vhv5gjN.png" group-title="אנגלית | מדע וטבע",WildEarth (1080p)
 https://dqga3jatxofgx.cloudfront.net/WildEarth.m3u8
-#EXTINF:-1 tvg-id="Wonder.uk@SD" tvg-logo="https://i.imgur.com/LquGNbh.png" group-title="English | Nature & Science",Wonder (1080p)
+#EXTINF:-1 tvg-id="Wonder.uk@SD" tvg-logo="https://i.imgur.com/LquGNbh.png" group-title="אנגלית | מדע וטבע",Wonder (1080p)
 https://lds-wonder-rakuten.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="ABCNews.au@Sydney" tvg-logo="https://i.imgur.com/BrW7gk8.png" group-title="אנגלית | חדשות",ABC News (720p)
+https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8
+#EXTINF:-1 tvg-id="AMC.us@EastHD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="אנגלית | סרטים ומדע בדיוני",AMC (United States) (720p)
+http://23.239.31.26:8989/amc/index.m3u8
+#EXTINF:-1 tvg-id="CBSNews247.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/CBS_News_247_logo.svg/960px-CBS_News_247_logo.svg.png" group-title="אנגלית | חדשות",CBS News 24/7 (720p)
+https://jmp2.uk/plu-6350fdd266e9ea0007bedec5.m3u8
+#EXTINF:-1 tvg-id="EuronewsEnglish.fr@SD" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Euro_News.png" group-title="אנגלית | חדשות",Euronews English (720p)
+https://jmp2.uk/plu-61de96114757070008d33cae.m3u8
+#EXTINF:-1 tvg-id="FailArmy.us@US" tvg-logo="https://i.imgur.com/VIpQJxL.png" group-title="אנגלית | קומדיה",FailArmy (720p)
+https://failarmy-international-au.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="FoxNewsChannel.us@SD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fox_News_Channel_logo.svg/960px-Fox_News_Channel_logo.svg.png" group-title="אנגלית | חדשות",Fox News Channel (720p)
+http://138.121.15.230:9002/FOX-NEWS/index.m3u8
+#EXTINF:-1 tvg-id="History.us@East" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/History_%282021%29.svg/500px-History_%282021%29.svg.png" group-title="אנגלית | היסטוריה",History (United States) (720p)
+http://212.5.144.156:8080/history/index.m3u8
+#EXTINF:-1 tvg-id="PBSKids.us@SD" tvg-logo="https://i.imgur.com/fg8c9WK.png" group-title="אנגלית | משפחה",PBS Kids (720p)
+https://livestream.pbskids.org/out/v1/14507d931bbe48a69287e4850e53443c/est.m3u8
+#EXTINF:-1 tvg-id="TrueHistory.us@SD" tvg-logo="https://i.imgur.com/1BHDGXx.png" group-title="אנגלית | היסטוריה",True History (720p)
+https://linear-188.frequency.stream/dist/glewedtv/188/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-id="7thHeaven.se@SE" tvg-logo="https://images.pluto.tv/channels/6728c9c85534bb0008b320a4/colorLogoPNG.png" group-title="אנגלית | משפחה",7th Heaven
+https://jmp2.uk/plu-6728cab6e482950008b76d8c.m3u8
+#EXTINF:-1 tvg-id="BlueBloods.us@SD" tvg-logo="https://images.pluto.tv/channels/61b3b8c645b45d0007a9bb8d/colorLogoSVG.svg" group-title="אנגלית | סדרות",Blue Bloods
+https://jmp2.uk/plu-61b3b8c645b45d0007a9bb8d.m3u8
+#EXTINF:-1 tvg-id="CheersPlusFrasier.us@SD" tvg-logo="https://images.pluto.tv/channels/66ba495ffe11e5000881f049/colorLogoPNG.png" group-title="אנגלית | קומדיה",Cheers + Frasier
+https://jmp2.uk/plu-66ba495ffe11e5000881f049.m3u8
+#EXTINF:-1 tvg-id="ClassicMoviesChannel.us@SD" tvg-logo="https://i.imgur.com/pQJxov2.png" group-title="אנגלית | סרטים ומדע בדיוני",Classic Movies Channel
+https://jmp2.uk/plu-561c5b0dada51f8004c4d855.m3u8
+#EXTINF:-1 tvg-id="JAG.se@SE" tvg-logo="https://images.pluto.tv/channels/654a4ab92c1d330008657ae5/colorLogoPNG.png" group-title="אנגלית | סדרות",JAG (Sweden)
+https://jmp2.uk/plu-654a515f986ad20008a4593b.m3u8
+#EXTINF:-1 tvg-id="KidsMovieClub.us@SD" tvg-logo="https://i.imgur.com/avFk0Tt.png" group-title="אנגלית | משפחה",Kids Movie Club
+https://jmp2.uk/plu-5db0ad56edc89300090d2ebb.m3u8
+#EXTINF:-1 tvg-id="MacGyver.se@SE" tvg-logo="https://images.pluto.tv/channels/654a59742c1d33000865a797/colorLogoPNG.png" group-title="אנגלית | סדרות",MacGyver (Sweden)
+https://jmp2.uk/plu-63a19eceb3d0eb0007439c34.m3u8
+#EXTINF:-1 tvg-id="Matlock.se@SE" tvg-logo="https://images.pluto.tv/channels/66290a779e68c20008a18cf3/colorLogoPNG.png" group-title="אנגלית | סדרות",Matlock (Sweden)
+https://jmp2.uk/plu-66290c12801af8000850c1a9.m3u8
+#EXTINF:-1 tvg-id="MissionImpossible.se@SE" tvg-logo="https://images.pluto.tv/channels/6478a9e4f77b61000817034b/colorLogoPNG.png" group-title="אנגלית | סדרות",Mission Impossible (Sweden)
+https://jmp2.uk/plu-639b4f14be012600070fe1be.m3u8
+#EXTINF:-1 tvg-id="MoreTVScifi.de@GB" tvg-logo="https://images.pluto.tv/channels/645e00d5d3fdde000829463a/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",More TV Sci-fi
+https://jmp2.uk/plu-645e00d5d3fdde000829463a.m3u8
+#EXTINF:-1 tvg-id="PlutoTVAction.se@SE" tvg-logo="https://images.pluto.tv/channels/61c095861782bd000780e0ba/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV Action (Sweden)
+https://jmp2.uk/plu-61c0b0688a80a4000703fbcb.m3u8
+#EXTINF:-1 tvg-id="PlutoTVAdventure.us@US" tvg-logo="https://images.pluto.tv/channels/653bdb0fbdf3cf00089cc395/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV Adventure
+https://jmp2.uk/plu-69d7ebb726eeec84158e28cb.m3u8
+#EXTINF:-1 tvg-id="PlutoTVComedyMovies.us@CA" tvg-logo="https://images.pluto.tv/channels/62ea3d24b8e02600071fa296/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV Comedy Movies
+https://jmp2.uk/plu-62ea3d24b8e02600071fa296.m3u8
+#EXTINF:-1 tvg-id="PlutoTVHorror.us@US" tvg-logo="https://images.pluto.tv/channels/569546031a619b8f07ce6e25/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV Horror (United States)
+https://jmp2.uk/plu-569546031a619b8f07ce6e25.m3u8
+#EXTINF:-1 tvg-id="PlutoTVSciFi.de@GB" tvg-logo="https://images.pluto.tv/channels/60ed498c4248a400077c0b9d/colorLogoPNG.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV Sci-Fi (Germany) GB
+https://jmp2.uk/plu-5dc02a44a9518600094273ac.m3u8
+#EXTINF:-1 tvg-id="PlutoTVScience.us@US" tvg-logo="https://i.imgur.com/uhunRoU.png" group-title="אנגלית | מדע וטבע",Pluto TV Science (United States)
+https://jmp2.uk/plu-563a970aa1a1f7fe7c9daad7.m3u8
+#EXTINF:-1 tvg-id="PlutoTVTheTwilightZone.us@SD" tvg-logo="https://i.imgur.com/FiIRQAR.png" group-title="אנגלית | סרטים ומדע בדיוני",Pluto TV The Twilight Zone
+https://jmp2.uk/plu-67352ed93a61d4000881f9fa.m3u8
+#EXTINF:-1 tvg-id="SmithsonianChannelSelects.us@SD" tvg-logo="https://i.imgur.com/Kt5j8Vr.png" group-title="אנגלית | מדע וטבע",Smithsonian Channel Selects (United States)
+https://jmp2.uk/plu-5f21ea08007a49000762d349.m3u8
+#EXTINF:-1 tvg-id="StarTrekDeepSpaceNine.us@SD" tvg-logo="https://images.pluto.tv/channels/65c69bbfd77d450008c7ffee/colorLogoPNG_1758310416057.png" group-title="אנגלית | סרטים ומדע בדיוני",Star Trek: Deep Space Nine
+https://jmp2.uk/plu-65c69bbfd77d450008c7ffee.m3u8
+#EXTINF:-1 tvg-id="StarTrekTheNextGeneration.us@SD" tvg-logo="https://images.pluto.tv/channels/695c32e61ca20bb8ca802eb9/colorLogoPNG_1768440087394.png" group-title="אנגלית | סרטים ומדע בדיוני",Star Trek: The Next Generation (United States)
+https://jmp2.uk/plu-695c32e61ca20bb8ca802eb9.m3u8
