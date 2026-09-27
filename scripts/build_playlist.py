@@ -3,6 +3,7 @@ import concurrent.futures as cf
 import json
 import re
 import urllib.request
+import urllib.parse
 from datetime import datetime, timezone
 from collections import defaultdict
 from pathlib import Path
@@ -12,6 +13,7 @@ CFG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 UA = "Mozilla/5.0 (compatible; Personal-IPTV-Builder/1.0)"
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
 EPG_URL = "https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz"
+CURRENT_PLAYLIST_URL = "https://raw.githubusercontent.com/rp00000-git/Iptv/main/playlist.m3u"
 ISRAEL_EPG_IDS = {
     "5Gold": "5GOLD.il",
     "5Live": "5LIVE.HD.il",
@@ -51,15 +53,15 @@ ISRAEL_EPG_IDS = {
 # A small, useful lineup. Names are the names used by iptv-org; the script
 # keeps the first reachable variant when more than one stream exists.
 ISRAEL_CHANNELS = {
-    "Kan 11": "ישראל | ערוצים מרכזיים",
-    "Keshet 12": "ישראל | ערוצים מרכזיים",
-    "Channel 13 (Israel)": "ישראל | ערוצים מרכזיים",
-    "Now 14": "ישראל | ערוצים מרכזיים",
-    "Food Channel": "ישראל | לייף סטייל",
-    "Vacation Channel": "ישראל | לייף סטייל",
-    "Kabbalah for the People Israel": "ישראל | יהדות",
-    "Good Life": "ישראל | לייף סטייל",
-    "Channel 24 (Israel)": "ישראל | מוזיקה",
+    "Kan 11": "ישראל",
+    "Keshet 12": "ישראל",
+    "Channel 13 (Israel)": "ישראל",
+    "Now 14": "ישראל",
+    "Channel 24 (Israel)": "ישראל",
+    "Food Channel": "ישראל",
+    "Good Life": "ישראל",
+    "Vacation Channel": "ישראל",
+    "Kabbalah for the People Israel": "ישראל",
 }
 
 ENGLISH_CHANNELS = {
@@ -78,68 +80,54 @@ ENGLISH_CHANNELS = {
     "DW English": "English | News",
     "Euronews English": "English | News",
     "Bloomberg Originals": "English | News",
-    "Comedy Central": "English | Comedy",
-    "NBC Comedy Vault": "English | Comedy",
-    "Comedy Dynamics": "English | Comedy",
-    "Just for Laughs Gags": "English | Comedy",
-    "Just for Laughs GAGS": "English | Comedy",
-    "FailArmy": "English | Comedy",
-    "Cheers + Frasier": "English | Comedy",
-    "Happy Days": "English | Comedy",
-    "Anger Management": "English | Comedy",
-    "Anger Management Channel": "English | Comedy",
-    "The Carol Burnett Show": "English | Comedy",
-    "Rakuten TV Family Movies UK": "English | Family",
-    "Rakuten TV Family Movies Finland": "English | Family",
-    "Kids Movie Club": "English | Family",
-    "7th Heaven": "English | Family",
-    "PBS Kids": "English | Family",
-    "Family Movies": "English | Family",
-    "National Geographic": "English | Nature & Science",
-    "National Geographic Wild": "English | Nature & Science",
-    "National Geographic Wild HD East": "English | Nature & Science",
-    "BBC Earth US": "English | Nature & Science",
-    "Curiosity NOW EN": "English | Nature & Science",
-    "Smithsonian Channel Selects (United States)": "English | Nature & Science",
-    "Pluto TV Science (United States)": "English | Nature & Science",
-    "InWonder": "English | Nature & Science",
-    "Wonder": "English | Nature & Science",
-    "Love Nature": "English | Nature & Science",
-    "WildEarth": "English | Nature & Science",
-    "Mythbusters": "English | Nature & Science",
-    "MythBusters": "English | Nature & Science",
-    "DUST": "English | Movies & Series",
-    "Pluto TV Sci-Fi (United States) CA": "English | Movies & Series",
-    "Pluto TV Sci-Fi (Germany) GB": "English | Movies & Series",
-    "Classic Movies Channel": "English | Movies & Series",
-    "Star Trek: Deep Space Nine": "English | Movies & Series",
-    "Star Trek: The Next Generation (United States)": "English | Movies & Series",
-    "Pluto TV The Twilight Zone": "English | Movies & Series",
-    "More TV Sci-fi": "English | Movies & Series",
-    "AMC (United States)": "English | Movies & Series",
-    "Pluto TV Action (Sweden)": "English | Movies & Series",
-    "Pluto TV Adventure": "English | Movies & Series",
-    "Pluto TV Comedy Movies": "English | Movies & Series",
-    "Pluto TV Horror (United States)": "English | Movies & Series",
-    "Blue Bloods": "English | Series",
-    "MacGyver (Sweden)": "English | Series",
-    "JAG (Sweden)": "English | Series",
-    "Mission Impossible (Sweden)": "English | Series",
-    "Matlock (Sweden)": "English | Series",
-    "History (United States)": "English | History",
+    "MovieSphere UK": "English | Movies",
+    "Rakuten TV Action Movies UK": "English | Movies",
+    "Rakuten TV Top Movies UK": "English | Movies",
+    "Rakuten TV Drama Movies Finland": "English | Movies",
+    "Hallmark Movies & More": "English | Movies",
+    "OuterSphere": "English | Movies",
+    "Ebony TV by Lionsgate": "English | Movies",
+    "Gravitas Movies": "English | Movies",
+    "Genesis Science Network": "English | Science & Sci-Fi",
+    "Space Live powered by sen": "English | Science & Sci-Fi",
+    "Terra Mater WILD English": "English | Nature",
+    "Love Nature": "English | Nature",
+    "Adventure Earth": "English | Nature",
+    "WaterBear": "English | Nature",
+    "Wonder": "English | Nature",
+    "The Pet Collective UK": "English | Nature",
+    "Documentary+ International": "English | Documentary",
+    "CGTN Documentary": "English | Documentary",
+    "CNA Originals": "English | Documentary",
     "History Hit": "English | History",
     "Autentic History": "English | History",
-    "True History": "English | History",
+    "Tastemade UK": "English | Travel & Food",
+    "INTRAVEL": "English | Travel & Food",
+    "Autentic Travel": "English | Travel & Food",
+    "bon appetit": "English | Travel & Food",
+    "Gusto TV": "English | Travel & Food",
+    "Dry Bar Comedy+": "English | Comedy",
+    "Universal Comedy": "English | Comedy",
+    "HappyKids": "English | Family",
+    "Dove Channel": "English | Family",
+    "Motorvision": "English | Cars & Lifestyle",
+    "PowerNation TV": "English | Cars & Lifestyle",
+    "Canal Motor": "English | Cars & Lifestyle",
+    "Fun Roads": "English | Cars & Lifestyle",
+    "NBC LX Home": "English | Cars & Lifestyle",
 }
 
 GROUP_HE = {
-    "English | News": "אנגלית | חדשות",
-    "English | Comedy": "אנגלית | קומדיה",
-    "English | Family": "אנגלית | משפחה",
-    "English | Nature & Science": "אנגלית | מדע וטבע",
-    "English | Movies & Series": "אנגלית | סרטים ומדע בדיוני",
-    "English | Series": "אנגלית | סדרות",
-    "English | History": "אנגלית | היסטוריה",
+    "English | News": "חדשות",
+    "English | Movies": "סרטים, בידור ומשפחה",
+    "English | Comedy": "סרטים, בידור ומשפחה",
+    "English | Family": "סרטים, בידור ומשפחה",
+    "English | Science & Sci-Fi": "מדע, טבע ולייף סטייל",
+    "English | Nature": "מדע, טבע ולייף סטייל",
+    "English | History": "מדע, טבע ולייף סטייל",
+    "English | Documentary": "מדע, טבע ולייף סטייל",
+    "English | Travel & Food": "מדע, טבע ולייף סטייל",
+    "English | Cars & Lifestyle": "מדע, טבע ולייף סטייל",
 }
 
 def base_name(name):
@@ -180,6 +168,34 @@ def wanted(entry):
         return name in ISRAEL_CHANNELS
     return name in ENGLISH_CHANNELS
 
+def request_bytes(url, headers, limit=65536):
+    request = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(request, timeout=CFG["probe_timeout_seconds"]) as response:
+        if not 200 <= getattr(response, "status", 200) < 400:
+            raise OSError(f"HTTP {response.status}")
+        return response.read(limit), response.geturl()
+
+def probe_hls(url, headers):
+    """Verify the manifest, its first variant and one actual media segment."""
+    for _ in range(3):
+        data, resolved_url = request_bytes(url, headers)
+        if b"#EXTM3U" not in data:
+            return False
+        text = data.decode("utf-8", "replace")
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        uris = [line for line in lines if not line.startswith("#")]
+        if not uris:
+            return False
+        next_url = urllib.parse.urljoin(resolved_url, uris[0])
+        # A master playlist points to another m3u8; a media playlist points
+        # directly to a video segment. Follow either form safely.
+        if ".m3u8" in next_url.lower() or "#EXT-X-STREAM-INF" in text:
+            url = next_url
+            continue
+        segment, _ = request_bytes(next_url, headers, limit=2048)
+        return bool(segment)
+    return False
+
 def probe(entry):
     headers = {"User-Agent": UA, "Range": "bytes=0-32767"}
     for opt in entry.get("options", []):
@@ -189,13 +205,10 @@ def probe(entry):
         elif "http-referrer=" in low:
             headers["Referer"] = opt.split("=", 1)[1]
     try:
-        request = urllib.request.Request(entry["url"], headers=headers)
-        with urllib.request.urlopen(request, timeout=CFG["probe_timeout_seconds"]) as response:
-            data = response.read(4096)
-            ok = 200 <= getattr(response, "status", 200) < 400
-            if ".m3u8" in entry["url"].lower() and b"#EXTM3U" not in data:
-                ok = False
-            return entry, ok
+        if ".m3u8" in entry["url"].lower():
+            return entry, probe_hls(entry["url"], headers)
+        data, _ = request_bytes(entry["url"], headers, limit=4096)
+        return entry, bool(data)
     except Exception:
         return entry, False
 
@@ -250,6 +263,9 @@ def curated_key(entry):
         "Rakuten TV Family Movies Finland": "Rakuten TV Family Movies UK",
         "National Geographic Wild HD East": "National Geographic Wild",
         "MythBusters": "Mythbusters",
+        "InWild": "INWILD",
+        "InTravel": "INTRAVEL",
+        "Journy": "JOURNY TV",
         "Pluto TV Sci-Fi (Germany) GB": "Pluto TV Sci-Fi (United States) CA",
     }
     return aliases.get(name, name)
@@ -265,15 +281,63 @@ def choose_one_per_channel(entries):
 
 def main():
     entries = []
+    # Keep the last known URLs as fallbacks. This is especially important for
+    # Israeli streams, which can appear offline to a GitHub runner abroad.
+    if (ROOT / "playlist.m3u").exists():
+        previous = parse((ROOT / "playlist.m3u").read_text(encoding="utf-8"), "English")
+        for entry in previous:
+            if base_name(entry["name"]) in ISRAEL_CHANNELS:
+                entry["source"] = "Israel"
+        entries.extend(previous)
+    try:
+        previous_remote = parse(get(CURRENT_PLAYLIST_URL).decode("utf-8", "replace"), "English")
+        for entry in previous_remote:
+            if base_name(entry["name"]) in ISRAEL_CHANNELS:
+                entry["source"] = "Israel"
+        entries.extend(previous_remote)
+    except Exception:
+        pass
     for source, url in CFG["sources"].items():
         entries.extend(parse(get(url).decode("utf-8", "replace"), source))
     candidates = cap_groups(dedupe([entry for entry in entries if wanted(entry)]))
-    israel = [entry for entry in candidates if entry["source"] == "Israel"]
-    english = sorted([entry for entry in candidates if entry["source"] != "Israel"], key=quality, reverse=True)
+    playlist_order = [
+        "Kan 11", "Keshet 12", "Channel 13 (Israel)", "Now 14",
+        "Channel 24 (Israel)", "Food Channel", "Good Life",
+        "Vacation Channel", "Kabbalah for the People Israel",
+        "Al Jazeera English", "BBC News", "Bloomberg Originals", "DW English",
+        "France 24 English", "NBC News NOW", "Reuters TV", "Sky News",
+        "ABC News", "CBS News 24/7", "Euronews English", "Fox News Channel",
+        "MovieSphere UK", "Rakuten TV Action Movies UK", "Rakuten TV Top Movies UK",
+        "Rakuten TV Drama Movies Finland", "Hallmark Movies & More", "OuterSphere",
+        "Ebony TV by Lionsgate", "Gravitas Movies", "Genesis Science Network",
+        "Space Live powered by sen", "Terra Mater WILD English", "Love Nature",
+        "Adventure Earth", "WaterBear", "Wonder", "The Pet Collective UK",
+        "Documentary+ International", "CGTN Documentary", "CNA Originals",
+        "History Hit", "Autentic History", "Tastemade UK", "INTRAVEL",
+        "Autentic Travel", "bon appetit", "Gusto TV", "Dry Bar Comedy+",
+        "Universal Comedy", "HappyKids", "Dove Channel", "Motorvision",
+        "PowerNation TV", "Canal Motor", "Fun Roads", "NBC LX Home",
+    ]
+    order_rank = {name: index for index, name in enumerate(playlist_order)}
+    ordered = sorted(
+        candidates,
+        key=lambda entry: (order_rank.get(curated_key(entry), 9999), -quality(entry)),
+    )
     with cf.ThreadPoolExecutor(max_workers=CFG["probe_workers"]) as pool:
-        checked = list(pool.map(probe, english))
+        checked = list(pool.map(probe, ordered))
     active = [entry for entry, ok in checked if ok]
-    final = choose_one_per_channel(dedupe(israel + active))
+    active_by_key = defaultdict(list)
+    fallback_by_key = defaultdict(list)
+    for entry in active:
+        active_by_key[curated_key(entry)].append(entry)
+    for entry in ordered:
+        fallback_by_key[curated_key(entry)].append(entry)
+    final = []
+    for name in playlist_order:
+        options = active_by_key.get(name) or fallback_by_key.get(name) or []
+        if options:
+            final.append(options[0])
+    final = dedupe(final)
     chosen_urls = {entry["url"] for entry in final}
     backup = choose_one_per_channel([entry for entry in active if entry["url"] not in chosen_urls])
     (ROOT / "playlist.m3u").write_text(render(final), encoding="utf-8")
@@ -283,7 +347,7 @@ def main():
     status = {
         "updated_utc": datetime.now(timezone.utc).isoformat(),
         "israel_channels": sum(e["source"] == "Israel" for e in final),
-        "english_checked": len(english),
+        "streams_checked": len(ordered),
         "english_active": sum(e["source"] != "Israel" for e in final),
         "total": len(final),
         "backup_streams": len(backup),

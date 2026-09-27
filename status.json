@@ -1,16 +1,9 @@
 {
-  "updated_utc": "2026-09-27T02:25:06.324917+00:00",
+  "updated_utc": "2026-09-27T08:50:57.318439+00:00",
   "israel_channels": 9,
-  "english_checked": 56,
-  "english_active": 52,
-  "total": 61,
-  "backup_streams": 3,
-  "missing_channels": [
-    "Comedy Central",
-    "Comedy Dynamics",
-    "Family Movies",
-    "Happy Days",
-    "National Geographic",
-    "National Geographic Wild"
-  ]
+  "streams_checked": 65,
+  "english_active": 47,
+  "total": 56,
+  "backup_streams": 1,
+  "missing_channels": []
 }

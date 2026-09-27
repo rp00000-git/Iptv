@@ -12,12 +12,22 @@ SOURCES = [
     "https://epgshare01.online/epgshare01/epg_ripper_IL1.xml.gz",
     "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
     "https://epgshare01.online/epgshare01/epg_ripper_IE1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz",
     "https://epgshare01.online/epgshare01/epg_ripper_RAKUTEN1.xml.gz",
     "https://epgshare01.online/epgshare01/epg_ripper_PLEX1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_WHALETVPLUS1.xml.gz",
 ]
 ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
 
 ALIASES = {
+    "al jazeera english": ["al jazeera english", "al jazeera", "al jazeera hd"],
+    "dw english": ["dw"],
+    "france 24 english": ["france 24 engl", "france 24", "france 24 hd"],
+    "abc news": ["abc news sydney"],
+    "euronews english": ["euronews"],
     "fox news channel": ["fox news"],
     "cbs news 24 7": ["cbs news"],
     "nbc news now": ["nbc news now"],
@@ -28,6 +38,24 @@ ALIASES = {
     "amc united states": ["amc"],
     "pbs kids": ["pbs kids"],
     "national geographic wild hd east": ["national geographic wild", "nat geo wild"],
+    "moviesphere uk": ["moviesphere"],
+    "rakuten tv action movies uk": ["uk action movies rakuten tv"],
+    "rakuten tv top movies uk": ["uk top movies rakuten tv"],
+    "rakuten tv drama movies finland": ["uk drama movies rakuten tv"],
+    "terra mater wild english": ["uk terra mater wild", "terra mater wild"],
+    "adventure earth": ["uk adventure earth"],
+    "waterbear": ["uk waterbear"],
+    "the pet collective uk": ["uk the pet collective", "the pet collective"],
+    "documentary international": ["documentary+"],
+    "cgtn documentary": ["uk cgtn documentary"],
+    "cna originals": ["uk cna originals"],
+    "tastemade uk": ["tastemade"],
+    "intravel": ["uk intravel", "se intravel", "intravel"],
+    "gusto tv": ["uk gusto tv"],
+    "dove channel": ["dove"],
+    "motorvision": ["motorvision tv"],
+    "powernation tv": ["powernation"],
+    "nbc lx home": ["lx home streaming"],
 }
 
 def norm(value):
