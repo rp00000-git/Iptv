@@ -117,6 +117,36 @@ ENGLISH_CHANNELS = {
     "NBC LX Home": "English | Cars & Lifestyle",
 }
 
+# Public AdultIPTV.net feeds. These are deliberately kept separate from the
+# general sources: an adult feed is published only when the full HLS probe
+# (manifest, variant and media segment) succeeds during the current run.
+ADULT_CHANNELS = {
+    "AdultIPTV.net Live Cams": "http://cdn.adultiptv.net/livecams.m3u8",
+    "AdultIPTV.net MILF": "http://cdn.adultiptv.net/milf.m3u8",
+    "AdultIPTV.net Big Dick": "http://cdn.adultiptv.net/bigdick.m3u8",
+    "AdultIPTV.net Big Tits": "http://cdn.adultiptv.net/bigtits.m3u8",
+    "AdultIPTV.net Fetish": "http://cdn.adultiptv.net/fetish.m3u8",
+    "AdultIPTV.net Pornstar": "http://cdn.adultiptv.net/pornstar.m3u8",
+    "AdultIPTV.net Big Ass": "http://cdn.adultiptv.net/bigass.m3u8",
+    "AdultIPTV.net Interracial": "http://cdn.adultiptv.net/interracial.m3u8",
+    "AdultIPTV.net Latina": "http://cdn.adultiptv.net/latina.m3u8",
+    "AdultIPTV.net POV": "http://cdn.adultiptv.net/pov.m3u8",
+    "AdultIPTV.net Blowjob": "http://cdn.adultiptv.net/blowjob.m3u8",
+    "AdultIPTV.net Hardcore": "http://cdn.adultiptv.net/hardcore.m3u8",
+    "AdultIPTV.net Cuckold": "http://cdn.adultiptv.net/cuckold.m3u8",
+    "AdultIPTV.net Threesome": "http://cdn.adultiptv.net/threesome.m3u8",
+    "AdultIPTV.net Russian": "http://cdn.adultiptv.net/russian.m3u8",
+    "AdultIPTV.net Lesbian": "http://cdn.adultiptv.net/lesbian.m3u8",
+    "AdultIPTV.net Rough": "http://cdn.adultiptv.net/rough.m3u8",
+    "AdultIPTV.net Gangbang": "http://cdn.adultiptv.net/gangbang.m3u8",
+    "AdultIPTV.net Anal": "http://cdn.adultiptv.net/anal.m3u8",
+    "AdultIPTV.net Compilation": "http://cdn.adultiptv.net/compilation.m3u8",
+    "AdultIPTV.net Brunette": "http://cdn.adultiptv.net/brunette.m3u8",
+    "AdultIPTV.net Blonde": "http://cdn.adultiptv.net/blonde.m3u8",
+    "AdultIPTV.net Gay": "http://cdn.adultiptv.net/gay.m3u8",
+    "AdultIPTV.net Asian": "http://cdn.adultiptv.net/asian.m3u8",
+}
+
 GROUP_HE = {
     "English | News": "חדשות",
     "English | Movies": "סרטים, בידור ומשפחה",
@@ -166,6 +196,8 @@ def wanted(entry):
     name = base_name(entry["name"])
     if entry["source"] == "Israel":
         return name in ISRAEL_CHANNELS
+    if entry["source"] == "Adult":
+        return name in ADULT_CHANNELS
     return name in ENGLISH_CHANNELS
 
 def request_bytes(url, headers, limit=65536):
@@ -230,7 +262,12 @@ def render(entries, epg=True):
         name = base_name(entry["name"])
         if entry["source"] == "Israel" and name in ISRAEL_EPG_IDS:
             attrs["tvg-id"] = ISRAEL_EPG_IDS[name]
-        group = (ISRAEL_CHANNELS if entry["source"] == "Israel" else ENGLISH_CHANNELS)[name]
+        if entry["source"] == "Israel":
+            group = ISRAEL_CHANNELS[name]
+        elif entry["source"] == "Adult":
+            group = "מבוגרים 18+"
+        else:
+            group = ENGLISH_CHANNELS[name]
         attrs["group-title"] = GROUP_HE.get(group, group)
         attr_text = " ".join(f'{key}="{str(value).replace(chr(34), chr(39))}"' for key, value in attrs.items() if value)
         lines.append(f'#EXTINF:-1 {attr_text},{entry["name"]}')
@@ -299,6 +336,13 @@ def main():
         pass
     for source, url in CFG["sources"].items():
         entries.extend(parse(get(url).decode("utf-8", "replace"), source))
+    entries.extend({
+        "name": name,
+        "attrs": {"tvg-id": ""},
+        "source": "Adult",
+        "options": [],
+        "url": url,
+    } for name, url in ADULT_CHANNELS.items())
     candidates = cap_groups(dedupe([entry for entry in entries if wanted(entry)]))
     playlist_order = [
         "Kan 11", "Keshet 12", "Channel 13 (Israel)", "Now 14",
@@ -317,6 +361,7 @@ def main():
         "Autentic Travel", "bon appetit", "Gusto TV", "Dry Bar Comedy+",
         "Universal Comedy", "HappyKids", "Dove Channel", "Motorvision",
         "PowerNation TV", "Canal Motor", "Fun Roads", "NBC LX Home",
+        *ADULT_CHANNELS.keys(),
     ]
     order_rank = {name: index for index, name in enumerate(playlist_order)}
     ordered = sorted(
@@ -334,7 +379,12 @@ def main():
         fallback_by_key[curated_key(entry)].append(entry)
     final = []
     for name in playlist_order:
-        options = active_by_key.get(name) or fallback_by_key.get(name) or []
+        # Never retain an unverified adult URL merely because it appeared in a
+        # previous playlist. It must pass the current run's media-segment test.
+        if name in ADULT_CHANNELS:
+            options = active_by_key.get(name) or []
+        else:
+            options = active_by_key.get(name) or fallback_by_key.get(name) or []
         if options:
             final.append(options[0])
     final = dedupe(final)
@@ -343,12 +393,13 @@ def main():
     (ROOT / "playlist.m3u").write_text(render(final), encoding="utf-8")
     (ROOT / "playlist-backup.m3u").write_text(render(backup), encoding="utf-8")
     active_keys = {curated_key(e) for e in final}
-    requested = {curated_key({"name": n}) for n in ISRAEL_CHANNELS | ENGLISH_CHANNELS}
+    requested = {curated_key({"name": n}) for n in ISRAEL_CHANNELS | ENGLISH_CHANNELS | ADULT_CHANNELS}
     status = {
         "updated_utc": datetime.now(timezone.utc).isoformat(),
         "israel_channels": sum(e["source"] == "Israel" for e in final),
         "streams_checked": len(ordered),
-        "english_active": sum(e["source"] != "Israel" for e in final),
+        "english_active": sum(e["source"] == "English" for e in final),
+        "adult_active": sum(e["source"] == "Adult" for e in final),
         "total": len(final),
         "backup_streams": len(backup),
         "missing_channels": sorted(requested - active_keys),
