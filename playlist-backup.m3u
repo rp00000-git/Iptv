@@ -1,3 +1,1 @@
 #EXTM3U url-tvg="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz" x-tvg-url="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz"
-#EXTINF:-1 tvg-id="SkyNews.ie@SD" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1404.png" group-title="חדשות",Sky News
-https://jmp2.uk/plu-55b285cd2665de274553d66f.m3u8
