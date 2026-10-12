@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-10-11T02:26:36.104696+00:00",
+  "updated_utc": "2026-10-12T02:29:34.018812+00:00",
   "israel_channels": 9,
-  "streams_checked": 89,
+  "streams_checked": 87,
   "english_active": 47,
   "adult_active": 24,
   "total": 80,
-  "backup_streams": 1,
+  "backup_streams": 0,
   "missing_channels": []
 }
