@@ -1,12 +1,10 @@
 {
-  "updated_utc": "2026-10-21T02:38:55.204758+00:00",
+  "updated_utc": "2026-10-22T02:39:22.912039+00:00",
   "israel_channels": 9,
   "streams_checked": 87,
   "english_active": 47,
-  "adult_active": 23,
-  "total": 79,
+  "adult_active": 24,
+  "total": 80,
   "backup_streams": 0,
-  "missing_channels": [
-    "AdultIPTV.net Live Cams"
-  ]
+  "missing_channels": []
 }
