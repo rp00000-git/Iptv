@@ -1,3 +1,5 @@
 #EXTM3U url-tvg="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz" x-tvg-url="https://raw.githubusercontent.com/rp00000-git/Iptv/main/epg.xml.gz"
 #EXTINF:-1 tvg-id="France24.fr@English" tvg-logo="https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_FRANCE_24/images/LOGO_HD/image.png" group-title="חדשות",France 24 English (1080p)
 https://freem3u.xyz/api/live/play.m3u8?vid=96
+#EXTINF:-1 tvg-id="Motorvision.de@SD" tvg-logo="https://i.imgur.com/v4kj8pI.png" group-title="מדע, טבע ולייף סטייל",Motorvision (1080i)
+https://mvg-mv.otteravision.com/mvg/mv/mv_1080p.m3u8
